@@ -22,9 +22,9 @@ export async function POST(
 
   try {
     const { pool } = await import('@/lib/db');
-    await pool.query(`UPDATE users SET account_status = 'active' WHERE id = ?`, [id]);
+    await pool.query(`UPDATE bank_users SET status = 'active' WHERE id = ?`, [id]);
   } catch (err: any) {
-    console.warn('[User Approve DB Error]:', err?.message);
+    console.warn('[User Approve DB Note]:', err?.message);
   }
 
   return NextResponse.json({

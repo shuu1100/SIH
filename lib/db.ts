@@ -1,4 +1,12 @@
-import mysql, { Pool } from 'mysql2/promise';
+import mysql, { type Pool } from 'mysql2/promise';
+import { config } from 'dotenv';
+import path from 'path';
+
+// Ensure .env.local is loaded if running in Node.js/script context
+if (!process.env.DB_PASSWORD) {
+  config({ path: path.resolve(process.cwd(), '.env.local') });
+  config({ path: path.resolve(process.cwd(), '.env') });
+}
 
 declare global {
   var _mysqlPool: Pool | undefined;
@@ -8,7 +16,7 @@ const dbConfig = {
   host: process.env.DB_HOST || 'sih-mysql.cley86o8g8vx.eu-north-1.rds.amazonaws.com',
   port: Number(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER || 'admin',
-  password: process.env.DB_PASSWORD || '',
+  password: process.env.DB_PASSWORD || 'kFjzqqPYEQb2awh',
   database: process.env.DB_NAME || 'sih',
   waitForConnections: true,
   connectionLimit: 10,
@@ -73,33 +81,27 @@ export async function initDatabase(): Promise<boolean> {
   try {
     const connection = await pool.getConnection();
     try {
-      // 1. Users table
+      // 1. Users table (matches actual RDS schema)
       await connection.query(`
         CREATE TABLE IF NOT EXISTS users (
           id VARCHAR(100) PRIMARY KEY,
           email VARCHAR(255),
           name VARCHAR(255),
-          phone VARCHAR(32),
-          username VARCHAR(255),
-          password VARCHAR(255),
           role VARCHAR(50) NOT NULL DEFAULT 'farmer',
-          account_status VARCHAR(50) NOT NULL DEFAULT 'active',
           profile_id VARCHAR(100),
-          metadata JSON,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
       `);
 
-      // Seed default accounts in RDS if not already present (using secure bcrypt hashes)
+      // Seed default accounts in RDS if not already present
       const [existingUsers]: any = await connection.query('SELECT COUNT(*) as count FROM users;');
       if (existingUsers[0]?.count === 0) {
-        const hashedDemoPass = '$2a$10$3euP7Wd5zYQoR1x7s7N2s.yI5U5L5W5X5Y5Z5a5b5c5d5e5f5g5h5';
         await connection.query(`
-          INSERT INTO users (id, email, name, phone, username, password, role, account_status)
+          INSERT INTO users (id, email, name, role, profile_id)
           VALUES 
-            ('usr_farmer_demo_1', 'farmer@smartcrop.in', 'Ramesh Kumar Patel', '9876543210', 'farmer1', '${hashedDemoPass}', 'farmer', 'active'),
-            ('usr_admin_demo_1', 'admin@agri.gov.in', 'Dr. Anil Verma (Agronomy Officer)', '9876543211', 'admin1', '${hashedDemoPass}', 'administrator', 'active'),
-            ('usr_bank_demo_1', 'bank@sbi.co.in', 'SBI Agri Credit Hub', '9876543212', 'bank1', '${hashedDemoPass}', 'bank', 'active');
+            ('usr_farmer_demo_1', 'farmer@smartcrop.in', 'Ramesh Kumar Patel', 'farmer', 'usr_farmer_demo_1'),
+            ('usr_admin_demo_1', 'admin@agri.gov.in', 'Dr. Anil Verma (Agronomy Officer)', 'administrator', 'usr_admin_demo_1'),
+            ('usr_bank_demo_1', 'bank@sbi.co.in', 'SBI Agri Credit Hub', 'bank', 'usr_bank_demo_1');
         `);
       }
 

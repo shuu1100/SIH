@@ -85,7 +85,10 @@ export default function FarmerProfilePage() {
     setMounted(true);
     async function loadFarmerProfile() {
       try {
-        const res = await fetch('/api/farmer/FARMER-001');
+        const session = await smartCropAuth.getCurrentSession();
+        const activeId = session?.id || 'FRM_47166869_622';
+
+        const res = await fetch(`/api/farmer/${activeId}`);
         const f = await res.json();
         
         if (f && !f.error) {
@@ -96,19 +99,26 @@ export default function FarmerProfilePage() {
             maskedPhone: f.phone ? f.phone.slice(0, 5) + "XXXX" + f.phone.slice(-3) : prev.maskedPhone,
             village: f.village || prev.village,
             district: f.district || prev.district,
-
+            state: f.state || prev.state,
             landArea: f.landArea ? `${f.landArea} acres` : prev.landArea,
             loanAmount: f.loans && f.loans.length > 0 ? `₹${Number(f.loans[0].loanAmount).toLocaleString('en-IN')}` : prev.loanAmount,
             loanDueDate: f.loans && f.loans.length > 0 ? new Date(f.loans[0].dueDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : prev.loanDueDate,
-            farms: f.farms ? f.farms.map((farm: any) => ({
+            farms: f.farms && f.farms.length > 0 ? f.farms.map((farm: any) => ({
               id: farm.id,
               name: farm.name,
-              area: `${farm.area} acres`,
-              location: `${farm.village}, ${farm.district}`,
-              crop: farm.crops && farm.crops.length > 0 ? farm.crops[0].name : "None",
+              area: farm.area ? (String(farm.area).includes('acre') ? farm.area : `${farm.area} acres`) : "1.5 acres",
+              location: `${farm.village || f.village || 'Baripada'}, ${farm.district || f.district || 'Mayurbhanj'}`,
+              crop: farm.crops && farm.crops.length > 0 ? farm.crops[0].name : (farm.crop || "Paddy (Swarna)"),
               status: "Active"
             })) : prev.farms
           }));
+
+          setEditFormData({
+            name: f.name || 'Ramesh Kumar Patel',
+            phone: f.phone || '9876543210',
+            village: f.village || 'Baripada Rural',
+            district: f.district || 'Mayurbhanj'
+          });
         }
       } catch (e) {
         console.warn('Could not fetch farmer profile:', e);
@@ -288,33 +298,51 @@ export default function FarmerProfilePage() {
   }
 
   const handleAddFarm = async () => {
-    const newFarm = {
-      id: String(farmer.farms.length + 1),
-      name: `East Basin Plot (Plot 0${farmer.farms.length + 1})`,
-      area: "1.2 acres",
-      location: "East Canal Belt",
-      crop: "Groundnut",
-      status: "Active"
-    };
-    setFarmer(prev => ({
-      ...prev,
-      farms: [...prev.farms, newFarm],
-      profileCompleteness: Math.min(100, prev.profileCompleteness + 5)
-    }));
-
     try {
-      await fetch('/api/crops', {
+      const session = await smartCropAuth.getCurrentSession();
+      const farmerId = session?.id || 'FRM_47166869_622';
+      const farmName = `East Basin Plot (Plot 0${farmer.farms.length + 1})`;
+
+      const res = await fetch(`/api/farmer/${farmerId}/farms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          farmer_id: 'farmer-001',
-          name: 'Groundnut (TG-37A)',
-          stage: 'Sowing & Germination'
+          name: farmName,
+          area: 1.2,
+          soilType: 'Red Loamy',
+          village: farmer.village || 'Baripada',
+          district: farmer.district || 'Mayurbhanj',
+          latitude: 21.9324,
+          longitude: 86.7351
         })
       });
-    } catch {}
 
-    showToast("New farm added and synced to database!");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData?.error || 'Failed to save farm to AWS RDS database.');
+      }
+
+      const savedFarm = await res.json();
+      const newFarm = {
+        id: savedFarm?.id || String(farmer.farms.length + 1),
+        name: farmName,
+        area: "1.2 acres",
+        location: `${farmer.village}, ${farmer.district}`,
+        crop: "Groundnut",
+        status: "Active"
+      };
+
+      setFarmer(prev => ({
+        ...prev,
+        farms: [...prev.farms, newFarm],
+        profileCompleteness: Math.min(100, prev.profileCompleteness + 5)
+      }));
+
+      showToast("New farm plot added and saved to AWS RDS!");
+    } catch (err: any) {
+      console.error('Failed to add farm:', err);
+      showToast(err.message || "Failed to add farm. Please try again.");
+    }
   };
 
   const openEditModal = () => {
@@ -345,33 +373,38 @@ export default function FarmerProfilePage() {
       ? editFormData.phone.slice(0, 5) + "XXXX" + editFormData.phone.slice(-3)
       : editFormData.phone;
 
-    setFarmer(prev => ({
-      ...prev,
-      name: editFormData.name,
-      phone: editFormData.phone,
-      maskedPhone: masked,
-      village: editFormData.village,
-      district: editFormData.district
-    }));
-
     try {
-      await fetch('/api/farmers', {
-        method: 'PUT',
+      const res = await fetch('/api/profile', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          id: 'farmer-001',
-          name: editFormData.name,
-          phone: editFormData.phone,
-          village: editFormData.village,
-          district: editFormData.district
+          name: editFormData.name.trim(),
+          phone: editFormData.phone.trim(),
+          village: editFormData.village.trim(),
+          district: editFormData.district.trim(),
         })
       });
-    } catch (err) {
-      console.warn('Sync to database failed:', err);
-    }
 
-    setIsEditModalOpen(false);
-    showToast("Profile details updated and saved to Database!");
+      const resData = await res.json().catch(() => ({}));
+      if (!res.ok || !resData?.success) {
+        throw new Error(resData?.error || 'Failed to save profile changes to AWS RDS.');
+      }
+
+      setFarmer(prev => ({
+        ...prev,
+        name: editFormData.name,
+        phone: editFormData.phone,
+        maskedPhone: masked,
+        village: editFormData.village,
+        district: editFormData.district
+      }));
+
+      setIsEditModalOpen(false);
+      showToast("Profile details updated and saved to AWS RDS MySQL!");
+    } catch (err: any) {
+      console.error('Sync to database failed:', err);
+      showToast(err.message || 'Failed to save profile changes to database.');
+    }
   };
 
   const handleSignOut = async () => {

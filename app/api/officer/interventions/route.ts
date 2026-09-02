@@ -242,15 +242,19 @@ export async function POST(request: Request) {
         newRecord.status,
         new Date(newRecord.created_at)
       ]);
-    } catch (dbErr: any) {
-      console.warn('[Officer Intervention POST] RDS insert notice:', dbErr?.message);
-    }
 
-    return NextResponse.json({
-      success: true,
-      message: 'Intervention logged successfully',
-      data: newRecord
-    });
+      return NextResponse.json({
+        success: true,
+        message: 'Intervention logged successfully to AWS RDS',
+        data: newRecord
+      }, { status: 201 });
+    } catch (dbErr: any) {
+      console.error('[Officer Intervention POST Error]:', dbErr?.message || dbErr);
+      return NextResponse.json(
+        { error: { code: 'database_error', message: dbErr?.message || 'Failed to save intervention to database' } },
+        { status: 500 }
+      );
+    }
   } catch (err: any) {
     return NextResponse.json(
       { error: { code: 'bad_request', message: err.message || 'Failed to log intervention' } },

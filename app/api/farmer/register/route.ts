@@ -65,20 +65,20 @@ export async function POST(req: NextRequest) {
     const connection = await pool.getConnection();
 
     try {
-      // Check duplicate phone in `farmers` or `users`
+      // Check duplicate phone in `farmers` or email in `users`
       const [existingFarmers]: any = await connection.query(
         'SELECT id FROM farmers WHERE phone = ? LIMIT 1;',
         [cleanPhone]
       );
 
       const [existingUsers]: any = await connection.query(
-        'SELECT id FROM users WHERE phone = ? OR (email = ? AND ? IS NOT NULL) LIMIT 1;',
-        [cleanPhone, farmerEmail, farmerEmail]
+        'SELECT id FROM users WHERE (email = ? AND ? IS NOT NULL) LIMIT 1;',
+        [farmerEmail, farmerEmail]
       );
 
       if ((existingFarmers && existingFarmers.length > 0) || (existingUsers && existingUsers.length > 0)) {
         return NextResponse.json(
-          { error: { code: 'duplicate_phone', message: 'A farmer with this mobile number is already registered. Please log in.' } },
+          { error: { code: 'duplicate_phone', message: 'A farmer with this mobile number or email is already registered. Please log in.' } },
           { status: 409 }
         );
       }
@@ -118,24 +118,13 @@ export async function POST(req: NextRequest) {
       // Insert into `users` table for unified authentication
       try {
         await connection.query(
-          `INSERT INTO users (id, email, name, phone, username, password, role, account_status, profile_id, metadata)
-           VALUES (?, ?, ?, ?, ?, ?, 'farmer', 'active', ?, ?);`,
+          `INSERT INTO users (id, email, name, role, profile_id)
+           VALUES (?, ?, ?, 'farmer', ?);`,
           [
             farmerId,
             farmerEmail,
             farmerName,
-            cleanPhone,
-            cleanPhone,
-            hashedPassword,
             farmerId,
-            JSON.stringify({
-              state: farmerState,
-              district: farmerDistrict,
-              village: farmerVillage,
-              landArea: parsedArea,
-              currentCrop,
-              language: farmerLang
-            })
           ]
         );
       } catch (userErr) {
@@ -187,15 +176,14 @@ export async function POST(req: NextRequest) {
         : new Date().toISOString().split('T')[0];
 
       await connection.query(
-        `INSERT INTO crops (id, farmer_id, name, stage, sowing_date, area_acres)
-         VALUES (?, ?, ?, ?, ?, ?);`,
+        `INSERT INTO crops (id, farmer_id, name, stage, sowing_date)
+         VALUES (?, ?, ?, ?, ?);`,
         [
           cropId,
           farmerId,
           currentCrop || 'Rice / Paddy',
           'Vegetative',
           formattedSowingDate,
-          parsedArea,
         ]
       );
 

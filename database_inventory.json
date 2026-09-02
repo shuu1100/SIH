@@ -1,0 +1,3528 @@
+{
+  "ai_recommendations": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "category",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "Advisory",
+        "extra": ""
+      },
+      {
+        "field": "priority",
+        "type": "varchar(20)",
+        "null": "YES",
+        "key": "",
+        "default": "HIGH",
+        "extra": ""
+      },
+      {
+        "field": "title",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "description",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "action_type",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "is_completed",
+        "type": "tinyint(1)",
+        "null": "YES",
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_rec_farmer",
+        "column": "farmer_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `ai_recommendations` (\n  `id` varchar(64) NOT NULL,\n  `farmer_id` varchar(64) NOT NULL,\n  `category` varchar(50) DEFAULT 'Advisory',\n  `priority` varchar(20) DEFAULT 'HIGH',\n  `title` varchar(255) NOT NULL,\n  `description` text NOT NULL,\n  `action_type` varchar(100) DEFAULT NULL,\n  `is_completed` tinyint(1) DEFAULT '0',\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `idx_rec_farmer` (`farmer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "bank_applications": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(64)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_name",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop_name",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "loan_type",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Kisan Credit Card (KCC)",
+        "extra": ""
+      },
+      {
+        "field": "amount",
+        "type": "decimal(12,2)",
+        "null": "YES",
+        "key": "",
+        "default": "0.00",
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "Under Review",
+        "extra": ""
+      },
+      {
+        "field": "applied_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `bank_applications` (\n  `id` varchar(64) NOT NULL,\n  `farmer_id` varchar(64) DEFAULT NULL,\n  `farmer_name` varchar(255) DEFAULT NULL,\n  `crop_name` varchar(100) DEFAULT NULL,\n  `loan_type` varchar(100) DEFAULT 'Kisan Credit Card (KCC)',\n  `amount` decimal(12,2) DEFAULT '0.00',\n  `status` varchar(50) DEFAULT 'Under Review',\n  `applied_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "bank_users": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "bank_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "email",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "phone",
+        "type": "varchar(20)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "password_hash",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "role",
+        "type": "enum('admin','staff')",
+        "null": "NO",
+        "key": "",
+        "default": "staff",
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "enum('active','inactive','suspended')",
+        "null": "NO",
+        "key": "",
+        "default": "active",
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "email",
+        "column": "email",
+        "unique": true
+      },
+      {
+        "name": "fk_bankusers_bank",
+        "column": "bank_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "bank_id",
+        "REFERENCED_TABLE_NAME": "banks",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_bankusers_bank"
+      }
+    ],
+    "createStatement": "CREATE TABLE `bank_users` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `bank_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `password_hash` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `role` enum('admin','staff') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'staff',\n  `status` enum('active','inactive','suspended') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `email` (`email`),\n  KEY `fk_bankusers_bank` (`bank_id`),\n  CONSTRAINT `fk_bankusers_bank` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "banks": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "bank_name",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "institution_type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "official_website",
+        "type": "varchar(500)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "official_email",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "official_phone",
+        "type": "varchar(20)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "description",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "logo_url",
+        "type": "varchar(500)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "registered_address",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "state",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "district",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "verification_status",
+        "type": "enum('draft','submitted','under_review','verified','rejected','suspended')",
+        "null": "NO",
+        "key": "",
+        "default": "draft",
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "field": "updated_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "official_email",
+        "column": "official_email",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `banks` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `institution_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `official_website` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `official_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `official_phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `description` text COLLATE utf8mb4_unicode_ci,\n  `logo_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `registered_address` text COLLATE utf8mb4_unicode_ci,\n  `state` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `district` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `verification_status` enum('draft','submitted','under_review','verified','rejected','suspended') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'draft',\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `official_email` (`official_email`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "bookings": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "equipment_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "start_date",
+        "type": "date",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "end_date",
+        "type": "date",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_bookings_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_bookings_equipment",
+        "column": "equipment_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "equipment_id",
+        "REFERENCED_TABLE_NAME": "equipment",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_bookings_equipment"
+      },
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_bookings_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `bookings` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `equipment_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `start_date` date NOT NULL,\n  `end_date` date NOT NULL,\n  `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_bookings_farmer` (`farmer_id`),\n  KEY `idx_bookings_equipment` (`equipment_id`),\n  CONSTRAINT `fk_bookings_equipment` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`) ON DELETE RESTRICT,\n  CONSTRAINT `fk_bookings_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "crop_risk": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "risk_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "risk_level",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "weather_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "soil_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop_health_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "market_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "financial_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "calculated_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_crop_risk_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_crop_risk_crop",
+        "column": "crop_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "crop_id",
+        "REFERENCED_TABLE_NAME": "crops",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_crop_risk_crop"
+      },
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_crop_risk_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `crop_risk` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `crop_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `risk_score` tinyint unsigned NOT NULL,\n  `risk_level` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `weather_score` tinyint unsigned NOT NULL,\n  `soil_score` tinyint unsigned NOT NULL,\n  `crop_health_score` tinyint unsigned NOT NULL,\n  `market_score` tinyint unsigned NOT NULL,\n  `financial_score` tinyint unsigned NOT NULL,\n  `calculated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `idx_crop_risk_farmer` (`farmer_id`),\n  KEY `idx_crop_risk_crop` (`crop_id`),\n  CONSTRAINT `fk_crop_risk_crop` FOREIGN KEY (`crop_id`) REFERENCES `crops` (`id`) ON DELETE CASCADE,\n  CONSTRAINT `fk_crop_risk_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "crops": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "stage",
+        "type": "varchar(50)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "sowing_date",
+        "type": "date",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_crops_farmer",
+        "column": "farmer_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_crops_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `crops` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `stage` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `sowing_date` date NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_crops_farmer` (`farmer_id`),\n  CONSTRAINT `fk_crops_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "disaster_warnings": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "district",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "warning_type",
+        "type": "enum('CYCLONE','FLOOD','HEATWAVE','EXTREME_RAINFALL')",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "source",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "message",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "processed_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "uq_district_warning",
+        "column": "district",
+        "unique": true
+      },
+      {
+        "name": "uq_district_warning",
+        "column": "warning_type",
+        "unique": true
+      },
+      {
+        "name": "uq_district_warning",
+        "column": "created_at",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `disaster_warnings` (\n  `id` varchar(30) NOT NULL,\n  `district` varchar(100) NOT NULL,\n  `warning_type` enum('CYCLONE','FLOOD','HEATWAVE','EXTREME_RAINFALL') NOT NULL,\n  `source` varchar(100) DEFAULT NULL,\n  `message` text NOT NULL,\n  `processed_at` timestamp NULL DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `uq_district_warning` (`district`,`warning_type`,`created_at`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "equipment": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "owner",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "location",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "price_per_hour",
+        "type": "decimal(10,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "availability",
+        "type": "tinyint(1)",
+        "null": "NO",
+        "key": "",
+        "default": "1",
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `equipment` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `owner` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `price_per_hour` decimal(10,2) NOT NULL,\n  `availability` tinyint(1) NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "equipment_rentals": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "equipment_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "start_time",
+        "type": "datetime",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "end_time",
+        "type": "datetime",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "duration",
+        "type": "decimal(10,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "total_cost",
+        "type": "decimal(12,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_equipment_rentals_equipment",
+        "column": "equipment_id",
+        "unique": false
+      },
+      {
+        "name": "idx_equipment_rentals_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_equipment_rentals_time",
+        "column": "start_time",
+        "unique": false
+      },
+      {
+        "name": "idx_equipment_rentals_time",
+        "column": "end_time",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "equipment_id",
+        "REFERENCED_TABLE_NAME": "equipment",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_equipment_rentals_equipment"
+      },
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_equipment_rentals_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `equipment_rentals` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `equipment_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `start_time` datetime NOT NULL,\n  `end_time` datetime NOT NULL,\n  `duration` decimal(10,2) NOT NULL,\n  `total_cost` decimal(12,2) NOT NULL,\n  `status` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_equipment_rentals_equipment` (`equipment_id`),\n  KEY `idx_equipment_rentals_farmer` (`farmer_id`),\n  KEY `idx_equipment_rentals_time` (`start_time`,`end_time`),\n  CONSTRAINT `fk_equipment_rentals_equipment` FOREIGN KEY (`equipment_id`) REFERENCES `equipment` (`id`) ON DELETE RESTRICT,\n  CONSTRAINT `fk_equipment_rentals_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "facility_analytics": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "int unsigned",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "field": "facility_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "event_type",
+        "type": "enum('VIEW','TERMS_VIEW','APPLY_CLICK')",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_location",
+        "type": "varchar(200)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "fk_analytics_facility",
+        "column": "facility_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "facility_id",
+        "REFERENCED_TABLE_NAME": "financial_facilities",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_analytics_facility"
+      }
+    ],
+    "createStatement": "CREATE TABLE `facility_analytics` (\n  `id` int unsigned NOT NULL AUTO_INCREMENT,\n  `facility_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `event_type` enum('VIEW','TERMS_VIEW','APPLY_CLICK') COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_location` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `fk_analytics_facility` (`facility_id`),\n  CONSTRAINT `fk_analytics_facility` FOREIGN KEY (`facility_id`) REFERENCES `financial_facilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "facility_benefits": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "facility_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "benefit",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "fk_benefits_facility",
+        "column": "facility_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "facility_id",
+        "REFERENCED_TABLE_NAME": "financial_facilities",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_benefits_facility"
+      }
+    ],
+    "createStatement": "CREATE TABLE `facility_benefits` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `facility_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `benefit` text COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `fk_benefits_facility` (`facility_id`),\n  CONSTRAINT `fk_benefits_facility` FOREIGN KEY (`facility_id`) REFERENCES `financial_facilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "facility_documents": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "facility_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "document_name",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "description",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "is_required",
+        "type": "tinyint(1)",
+        "null": "NO",
+        "key": "",
+        "default": "1",
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "fk_documents_facility",
+        "column": "facility_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "facility_id",
+        "REFERENCED_TABLE_NAME": "financial_facilities",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_documents_facility"
+      }
+    ],
+    "createStatement": "CREATE TABLE `facility_documents` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `facility_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `document_name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `description` text COLLATE utf8mb4_unicode_ci,\n  `is_required` tinyint(1) NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`),\n  KEY `fk_documents_facility` (`facility_id`),\n  CONSTRAINT `fk_documents_facility` FOREIGN KEY (`facility_id`) REFERENCES `financial_facilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "facility_eligibility": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "facility_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_type",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "minimum_land",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "maximum_land",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop_types",
+        "type": "json",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "states",
+        "type": "json",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "districts",
+        "type": "json",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "other_conditions",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "facility_id",
+        "column": "facility_id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "facility_id",
+        "REFERENCED_TABLE_NAME": "financial_facilities",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_eligibility_facility"
+      }
+    ],
+    "createStatement": "CREATE TABLE `facility_eligibility` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `facility_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_type` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `minimum_land` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `maximum_land` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `crop_types` json DEFAULT NULL,\n  `states` json DEFAULT NULL,\n  `districts` json DEFAULT NULL,\n  `other_conditions` text COLLATE utf8mb4_unicode_ci,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `facility_id` (`facility_id`),\n  CONSTRAINT `fk_eligibility_facility` FOREIGN KEY (`facility_id`) REFERENCES `financial_facilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "facility_terms": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "facility_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "version",
+        "type": "varchar(20)",
+        "null": "NO",
+        "key": "",
+        "default": "1.0",
+        "extra": ""
+      },
+      {
+        "field": "terms_text",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "effective_date",
+        "type": "date",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "fk_terms_facility",
+        "column": "facility_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "facility_id",
+        "REFERENCED_TABLE_NAME": "financial_facilities",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_terms_facility"
+      }
+    ],
+    "createStatement": "CREATE TABLE `facility_terms` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `facility_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `version` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1.0',\n  `terms_text` text COLLATE utf8mb4_unicode_ci NOT NULL,\n  `effective_date` date DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `fk_terms_facility` (`facility_id`),\n  CONSTRAINT `fk_terms_facility` FOREIGN KEY (`facility_id`) REFERENCES `financial_facilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "farmer_profiles": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "user_id",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "phone",
+        "type": "varchar(32)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "district",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Mayurbhanj",
+        "extra": ""
+      },
+      {
+        "field": "village",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Baripada",
+        "extra": ""
+      },
+      {
+        "field": "state",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Odisha",
+        "extra": ""
+      },
+      {
+        "field": "language",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "en",
+        "extra": ""
+      },
+      {
+        "field": "land_area",
+        "type": "decimal(10,2)",
+        "null": "YES",
+        "key": "",
+        "default": "3.50",
+        "extra": ""
+      },
+      {
+        "field": "soil_type",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Red Loamy",
+        "extra": ""
+      },
+      {
+        "field": "irrigation_source",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Borewell & Canal",
+        "extra": ""
+      },
+      {
+        "field": "loan_amount",
+        "type": "decimal(12,2)",
+        "null": "YES",
+        "key": "",
+        "default": "0.00",
+        "extra": ""
+      },
+      {
+        "field": "loan_due_date",
+        "type": "date",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "kyc_status",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "VERIFIED",
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `farmer_profiles` (\n  `id` varchar(64) NOT NULL,\n  `user_id` varchar(100) DEFAULT NULL,\n  `name` varchar(255) NOT NULL,\n  `phone` varchar(32) NOT NULL,\n  `district` varchar(100) DEFAULT 'Mayurbhanj',\n  `village` varchar(100) DEFAULT 'Baripada',\n  `state` varchar(100) DEFAULT 'Odisha',\n  `language` varchar(50) DEFAULT 'en',\n  `land_area` decimal(10,2) DEFAULT '3.50',\n  `soil_type` varchar(100) DEFAULT 'Red Loamy',\n  `irrigation_source` varchar(100) DEFAULT 'Borewell & Canal',\n  `loan_amount` decimal(12,2) DEFAULT '0.00',\n  `loan_due_date` date DEFAULT NULL,\n  `kyc_status` varchar(50) DEFAULT 'VERIFIED',\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "farmers": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "phone",
+        "type": "varchar(15)",
+        "null": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "email",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "password_hash",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "district",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "village",
+        "type": "varchar(50)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "language",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "land_area",
+        "type": "decimal(6,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "loan_amount",
+        "type": "decimal(12,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "loan_due_date",
+        "type": "date",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "field": "state",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": "",
+        "extra": ""
+      },
+      {
+        "field": "sms_alerts_enabled",
+        "type": "tinyint(1)",
+        "null": "NO",
+        "key": "",
+        "default": "1",
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "uq_farmers_phone",
+        "column": "phone",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `farmers` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `password_hash` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `district` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `village` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `language` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `land_area` decimal(6,2) NOT NULL,\n  `loan_amount` decimal(12,2) DEFAULT NULL,\n  `loan_due_date` date DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `state` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',\n  `sms_alerts_enabled` tinyint(1) NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `uq_farmers_phone` (`phone`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "farms": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "latitude",
+        "type": "decimal(10,7)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "longitude",
+        "type": "decimal(10,7)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "area",
+        "type": "decimal(10,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "soil_type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "village",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "district",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_farms_farmer",
+        "column": "farmer_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_farms_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `farms` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `latitude` decimal(10,7) NOT NULL,\n  `longitude` decimal(10,7) NOT NULL,\n  `area` decimal(10,2) NOT NULL,\n  `soil_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `village` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `district` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_farms_farmer` (`farmer_id`),\n  CONSTRAINT `fk_farms_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "financial_facilities": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "bank_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "facility_name",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "facility_type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "description",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "minimum_amount",
+        "type": "decimal(12,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "maximum_amount",
+        "type": "decimal(12,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "interest_rate",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "tenure",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "repayment_frequency",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "processing_fee",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "eligibility_description",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "enum('draft','submitted','under_review','approved','published','unpublished','expired','suspended','deleted')",
+        "null": "NO",
+        "key": "",
+        "default": "draft",
+        "extra": ""
+      },
+      {
+        "field": "application_url",
+        "type": "varchar(500)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "terms_url",
+        "type": "varchar(500)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "field": "updated_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      },
+      {
+        "field": "expiry_date",
+        "type": "date",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "fk_facilities_bank",
+        "column": "bank_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "bank_id",
+        "REFERENCED_TABLE_NAME": "banks",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_facilities_bank"
+      }
+    ],
+    "createStatement": "CREATE TABLE `financial_facilities` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `bank_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `facility_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `facility_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `description` text COLLATE utf8mb4_unicode_ci,\n  `minimum_amount` decimal(12,2) DEFAULT NULL,\n  `maximum_amount` decimal(12,2) DEFAULT NULL,\n  `interest_rate` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `tenure` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `repayment_frequency` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `processing_fee` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `eligibility_description` text COLLATE utf8mb4_unicode_ci,\n  `status` enum('draft','submitted','under_review','approved','published','unpublished','expired','suspended','deleted') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'draft',\n  `application_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `terms_url` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  `expiry_date` date DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `fk_facilities_bank` (`bank_id`),\n  CONSTRAINT `fk_facilities_bank` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "government_schemes": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "category",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": "Machinery Subsidy",
+        "extra": ""
+      },
+      {
+        "field": "subsidy_percent",
+        "type": "int",
+        "null": "YES",
+        "key": "",
+        "default": "50",
+        "extra": ""
+      },
+      {
+        "field": "max_subsidy_amount",
+        "type": "decimal(12,2)",
+        "null": "YES",
+        "key": "",
+        "default": "100000.00",
+        "extra": ""
+      },
+      {
+        "field": "description",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "eligibility_criteria",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "ACTIVE",
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `government_schemes` (\n  `id` varchar(64) NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `category` varchar(100) DEFAULT 'Machinery Subsidy',\n  `subsidy_percent` int DEFAULT '50',\n  `max_subsidy_amount` decimal(12,2) DEFAULT '100000.00',\n  `description` text,\n  `eligibility_criteria` text,\n  `status` varchar(50) DEFAULT 'ACTIVE',\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "insurance": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_insurance_farmer",
+        "column": "farmer_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_insurance_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `insurance` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `crop` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_insurance_farmer` (`farmer_id`),\n  CONSTRAINT `fk_insurance_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "interventions": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "officer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "risk_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "priority",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "notes",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "assigned_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "field": "completed_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_interventions_officer",
+        "column": "officer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_interventions_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_interventions_risk",
+        "column": "risk_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_interventions_farmer"
+      },
+      {
+        "COLUMN_NAME": "risk_id",
+        "REFERENCED_TABLE_NAME": "crop_risk",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_interventions_risk"
+      }
+    ],
+    "createStatement": "CREATE TABLE `interventions` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `officer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `risk_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `priority` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `status` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `notes` text COLLATE utf8mb4_unicode_ci,\n  `assigned_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `completed_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_interventions_officer` (`officer_id`),\n  KEY `idx_interventions_farmer` (`farmer_id`),\n  KEY `idx_interventions_risk` (`risk_id`),\n  CONSTRAINT `fk_interventions_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE,\n  CONSTRAINT `fk_interventions_risk` FOREIGN KEY (`risk_id`) REFERENCES `crop_risk` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "loans": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "bank_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "loan_type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "principal_amount",
+        "type": "decimal(12,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "outstanding_amount",
+        "type": "decimal(12,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "due_date",
+        "type": "date",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_loans_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_loans_bank",
+        "column": "bank_id",
+        "unique": false
+      },
+      {
+        "name": "idx_loans_due_date",
+        "column": "due_date",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "bank_id",
+        "REFERENCED_TABLE_NAME": "banks",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_loans_bank"
+      },
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_loans_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `loans` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `bank_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `loan_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `principal_amount` decimal(12,2) NOT NULL,\n  `outstanding_amount` decimal(12,2) NOT NULL,\n  `due_date` date NOT NULL,\n  `status` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_loans_farmer` (`farmer_id`),\n  KEY `idx_loans_bank` (`bank_id`),\n  KEY `idx_loans_due_date` (`due_date`),\n  CONSTRAINT `fk_loans_bank` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE RESTRICT,\n  CONSTRAINT `fk_loans_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "mandi_prices": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "mandi_name",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "district",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "modal_price",
+        "type": "decimal(10,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "price_date",
+        "type": "date",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "mandi_location",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "price",
+        "type": "decimal(10,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "min_price",
+        "type": "decimal(10,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "max_price",
+        "type": "decimal(10,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "msp",
+        "type": "decimal(10,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_mandi_prices_lookup",
+        "column": "crop_id",
+        "unique": false
+      },
+      {
+        "name": "idx_mandi_prices_lookup",
+        "column": "district",
+        "unique": false
+      },
+      {
+        "name": "idx_mandi_prices_lookup",
+        "column": "price_date",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `mandi_prices` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `crop_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `mandi_name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `district` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `modal_price` decimal(10,2) NOT NULL,\n  `price_date` date NOT NULL,\n  `mandi_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `price` decimal(10,2) DEFAULT NULL,\n  `min_price` decimal(10,2) DEFAULT NULL,\n  `max_price` decimal(10,2) DEFAULT NULL,\n  `msp` decimal(10,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_mandi_prices_lookup` (`crop_id`,`district`,`price_date`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "notifications": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "user_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "type",
+        "type": "varchar(50)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "category",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "priority",
+        "type": "enum('critical','warning','info')",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "title",
+        "type": "varchar(200)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "message",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "body",
+        "type": "json",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "voice_text",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "language",
+        "type": "varchar(10)",
+        "null": "YES",
+        "key": "",
+        "default": "en",
+        "extra": ""
+      },
+      {
+        "field": "action_label",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "action_url",
+        "type": "varchar(300)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "action_status",
+        "type": "enum('not_required','required','in_progress','completed','expired')",
+        "null": "YES",
+        "key": "",
+        "default": "not_required",
+        "extra": ""
+      },
+      {
+        "field": "source_feature",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "source_entity_id",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "correlation_id",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "is_read",
+        "type": "tinyint(1)",
+        "null": "NO",
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      {
+        "field": "read_at",
+        "type": "datetime",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "field": "channel",
+        "type": "enum('SMS','IN_APP','VOICE','PUSH')",
+        "null": "NO",
+        "key": "",
+        "default": "IN_APP",
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "enum('PENDING','SENT','DELIVERED','FAILED')",
+        "null": "NO",
+        "key": "",
+        "default": "PENDING",
+        "extra": ""
+      },
+      {
+        "field": "provider",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "provider_message_id",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "risk_score",
+        "type": "tinyint unsigned",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "reason",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "retry_count",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      {
+        "field": "last_error",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "sent_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "delivered_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "failed_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_notifications_farmer_unread",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_notifications_farmer_unread",
+        "column": "is_read",
+        "unique": false
+      },
+      {
+        "name": "idx_notifications_farmer_time",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_notifications_farmer_time",
+        "column": "created_at",
+        "unique": false
+      },
+      {
+        "name": "idx_dedup",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_dedup",
+        "column": "type",
+        "unique": false
+      },
+      {
+        "name": "idx_dedup",
+        "column": "priority",
+        "unique": false
+      },
+      {
+        "name": "idx_dedup",
+        "column": "created_at",
+        "unique": false
+      },
+      {
+        "name": "idx_provider_msg",
+        "column": "provider_message_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_notifications_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `notifications` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `user_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `category` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `priority` enum('critical','warning','info') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,\n  `body` json DEFAULT NULL,\n  `voice_text` text COLLATE utf8mb4_unicode_ci,\n  `language` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'en',\n  `action_label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `action_url` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `action_status` enum('not_required','required','in_progress','completed','expired') COLLATE utf8mb4_unicode_ci DEFAULT 'not_required',\n  `source_feature` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `source_entity_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `correlation_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `is_read` tinyint(1) NOT NULL DEFAULT '0',\n  `read_at` datetime DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `channel` enum('SMS','IN_APP','VOICE','PUSH') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'IN_APP',\n  `status` enum('PENDING','SENT','DELIVERED','FAILED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',\n  `provider` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `provider_message_id` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `risk_score` tinyint unsigned DEFAULT NULL,\n  `reason` text COLLATE utf8mb4_unicode_ci,\n  `retry_count` tinyint unsigned NOT NULL DEFAULT '0',\n  `last_error` text COLLATE utf8mb4_unicode_ci,\n  `sent_at` timestamp NULL DEFAULT NULL,\n  `delivered_at` timestamp NULL DEFAULT NULL,\n  `failed_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_notifications_farmer_unread` (`farmer_id`,`is_read`),\n  KEY `idx_notifications_farmer_time` (`farmer_id`,`created_at`),\n  KEY `idx_dedup` (`farmer_id`,`type`,`priority`,`created_at`),\n  KEY `idx_provider_msg` (`provider_message_id`),\n  CONSTRAINT `fk_notifications_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "officer_interventions": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "officer_id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(64)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_name",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "intervention_type",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "notes",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "outcome",
+        "type": "text",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "risk_level",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "MEDIUM",
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "varchar(50)",
+        "null": "YES",
+        "key": "",
+        "default": "SCHEDULED",
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_officer",
+        "column": "officer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_farmer",
+        "column": "farmer_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `officer_interventions` (\n  `id` varchar(64) NOT NULL,\n  `officer_id` varchar(64) NOT NULL,\n  `farmer_id` varchar(64) NOT NULL,\n  `farmer_name` varchar(255) DEFAULT NULL,\n  `intervention_type` varchar(100) NOT NULL,\n  `notes` text,\n  `outcome` text,\n  `risk_level` varchar(50) DEFAULT 'MEDIUM',\n  `status` varchar(50) DEFAULT 'SCHEDULED',\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `idx_officer` (`officer_id`),\n  KEY `idx_farmer` (`farmer_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "officer_settings": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "int",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "field": "user_id",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "notify_high_distress",
+        "type": "tinyint(1)",
+        "null": "YES",
+        "key": "",
+        "default": "1",
+        "extra": ""
+      },
+      {
+        "field": "notify_weather_emergency",
+        "type": "tinyint(1)",
+        "null": "YES",
+        "key": "",
+        "default": "1",
+        "extra": ""
+      },
+      {
+        "field": "notify_new_assignment",
+        "type": "tinyint(1)",
+        "null": "YES",
+        "key": "",
+        "default": "1",
+        "extra": ""
+      },
+      {
+        "field": "notify_loan_insurance",
+        "type": "tinyint(1)",
+        "null": "YES",
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      {
+        "field": "preferred_language",
+        "type": "varchar(10)",
+        "null": "YES",
+        "key": "",
+        "default": "en",
+        "extra": ""
+      },
+      {
+        "field": "updated_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_officer_settings_user",
+        "column": "user_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `officer_settings` (\n  `id` int NOT NULL AUTO_INCREMENT,\n  `user_id` varchar(100) NOT NULL,\n  `notify_high_distress` tinyint(1) DEFAULT '1',\n  `notify_weather_emergency` tinyint(1) DEFAULT '1',\n  `notify_new_assignment` tinyint(1) DEFAULT '1',\n  `notify_loan_insurance` tinyint(1) DEFAULT '0',\n  `preferred_language` varchar(10) DEFAULT 'en',\n  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `idx_officer_settings_user` (`user_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "risk_history": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "crop_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "risk_score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "calculated_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_risk_history_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_risk_history_crop",
+        "column": "crop_id",
+        "unique": false
+      },
+      {
+        "name": "idx_risk_history_time",
+        "column": "crop_id",
+        "unique": false
+      },
+      {
+        "name": "idx_risk_history_time",
+        "column": "calculated_at",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "crop_id",
+        "REFERENCED_TABLE_NAME": "crops",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_risk_history_crop"
+      },
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_risk_history_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `risk_history` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `crop_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `risk_score` tinyint unsigned NOT NULL,\n  `calculated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `idx_risk_history_farmer` (`farmer_id`),\n  KEY `idx_risk_history_crop` (`crop_id`),\n  KEY `idx_risk_history_time` (`crop_id`,`calculated_at`),\n  CONSTRAINT `fk_risk_history_crop` FOREIGN KEY (`crop_id`) REFERENCES `crops` (`id`) ON DELETE CASCADE,\n  CONSTRAINT `fk_risk_history_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "risk_scores": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "score",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "rainfall_risk",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "market_risk",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "loan_risk",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "reasons",
+        "type": "json",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_risk_scores_farmer_time",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_risk_scores_farmer_time",
+        "column": "created_at",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_risk_scores_farmer"
+      }
+    ],
+    "createStatement": "CREATE TABLE `risk_scores` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `score` tinyint unsigned NOT NULL,\n  `rainfall_risk` tinyint unsigned NOT NULL,\n  `market_risk` tinyint unsigned NOT NULL,\n  `loan_risk` tinyint unsigned NOT NULL,\n  `reasons` json NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  KEY `idx_risk_scores_farmer_time` (`farmer_id`,`created_at`),\n  CONSTRAINT `fk_risk_scores_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "scheme_application_documents": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "application_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "document_name",
+        "type": "varchar(150)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "enum('missing','ready')",
+        "null": "NO",
+        "key": "",
+        "default": "missing",
+        "extra": ""
+      },
+      {
+        "field": "updated_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      },
+      {
+        "field": "file_data",
+        "type": "longblob",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "file_name",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "mime_type",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "file_size",
+        "type": "bigint",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_sad_application",
+        "column": "application_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "application_id",
+        "REFERENCED_TABLE_NAME": "scheme_applications",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_sad_application"
+      }
+    ],
+    "createStatement": "CREATE TABLE `scheme_application_documents` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `application_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `document_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `status` enum('missing','ready') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'missing',\n  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  `file_data` longblob,\n  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `mime_type` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `file_size` bigint DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_sad_application` (`application_id`),\n  CONSTRAINT `fk_sad_application` FOREIGN KEY (`application_id`) REFERENCES `scheme_applications` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "scheme_applications": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "farmer_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "scheme_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "eligibility_percent",
+        "type": "tinyint unsigned",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "matched_reasons",
+        "type": "json",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "status",
+        "type": "enum('not_applied','submitted','verification','approved','rejected')",
+        "null": "NO",
+        "key": "",
+        "default": "not_applied",
+        "extra": ""
+      },
+      {
+        "field": "rejection_reason",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "submitted_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "decided_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "uq_farmer_scheme",
+        "column": "farmer_id",
+        "unique": true
+      },
+      {
+        "name": "uq_farmer_scheme",
+        "column": "scheme_id",
+        "unique": true
+      },
+      {
+        "name": "idx_scheme_applications_farmer",
+        "column": "farmer_id",
+        "unique": false
+      },
+      {
+        "name": "idx_scheme_applications_scheme",
+        "column": "scheme_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farmer_id",
+        "REFERENCED_TABLE_NAME": "farmers",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_scheme_app_farmer"
+      },
+      {
+        "COLUMN_NAME": "scheme_id",
+        "REFERENCED_TABLE_NAME": "schemes",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_scheme_app_scheme"
+      }
+    ],
+    "createStatement": "CREATE TABLE `scheme_applications` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `farmer_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `scheme_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `eligibility_percent` tinyint unsigned NOT NULL,\n  `matched_reasons` json NOT NULL,\n  `status` enum('not_applied','submitted','verification','approved','rejected') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'not_applied',\n  `rejection_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `submitted_at` timestamp NULL DEFAULT NULL,\n  `decided_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `uq_farmer_scheme` (`farmer_id`,`scheme_id`),\n  KEY `idx_scheme_applications_farmer` (`farmer_id`),\n  KEY `idx_scheme_applications_scheme` (`scheme_id`),\n  CONSTRAINT `fk_scheme_app_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmers` (`id`) ON DELETE CASCADE,\n  CONSTRAINT `fk_scheme_app_scheme` FOREIGN KEY (`scheme_id`) REFERENCES `schemes` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "scheme_eligibility_criteria": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "scheme_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "field_name",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "operator",
+        "type": "varchar(20)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "value",
+        "type": "varchar(255)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "idx_sec_scheme",
+        "column": "scheme_id",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "scheme_id",
+        "REFERENCED_TABLE_NAME": "schemes",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_sec_scheme"
+      }
+    ],
+    "createStatement": "CREATE TABLE `scheme_eligibility_criteria` (\n  `id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `scheme_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `field_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `operator` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_sec_scheme` (`scheme_id`),\n  CONSTRAINT `fk_sec_scheme` FOREIGN KEY (`scheme_id`) REFERENCES `schemes` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "schemes": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(200)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "state",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "eligibility",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "documents",
+        "type": "json",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "application_url",
+        "type": "varchar(500)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `schemes` (\n  `id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `state` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `eligibility` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `documents` json NOT NULL,\n  `application_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "sms_templates": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "template_key",
+        "type": "varchar(50)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "language",
+        "type": "enum('en','hi','od')",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "body",
+        "type": "text",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "updated_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      },
+      {
+        "name": "uq_template_lang",
+        "column": "template_key",
+        "unique": true
+      },
+      {
+        "name": "uq_template_lang",
+        "column": "language",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `sms_templates` (\n  `id` varchar(30) NOT NULL,\n  `template_key` varchar(50) NOT NULL,\n  `language` enum('en','hi','od') NOT NULL,\n  `body` text NOT NULL,\n  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `uq_template_lang` (`template_key`,`language`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "users": {
+    "columns": [
+      {
+        "field": "id",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "email",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "name",
+        "type": "varchar(255)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "role",
+        "type": "varchar(50)",
+        "null": "NO",
+        "key": "",
+        "default": "farmer",
+        "extra": ""
+      },
+      {
+        "field": "profile_id",
+        "type": "varchar(100)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "created_at",
+        "type": "timestamp",
+        "null": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "column": "id",
+        "unique": true
+      }
+    ],
+    "foreignKeys": [],
+    "createStatement": "CREATE TABLE `users` (\n  `id` varchar(100) NOT NULL,\n  `email` varchar(255) DEFAULT NULL,\n  `name` varchar(255) DEFAULT NULL,\n  `role` varchar(50) NOT NULL DEFAULT 'farmer',\n  `profile_id` varchar(100) DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+  },
+  "weather_observations": {
+    "columns": [
+      {
+        "field": "farm_id",
+        "type": "varchar(30)",
+        "null": "NO",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "temperature",
+        "type": "decimal(5,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "rainfall",
+        "type": "decimal(8,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "humidity",
+        "type": "decimal(5,2)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "forecast_rainfall",
+        "type": "decimal(8,2)",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "field": "recorded_at",
+        "type": "timestamp",
+        "null": "NO",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "field": "source",
+        "type": "varchar(100)",
+        "null": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
+    "indexes": [
+      {
+        "name": "idx_weather_farm",
+        "column": "farm_id",
+        "unique": false
+      },
+      {
+        "name": "idx_weather_recorded",
+        "column": "farm_id",
+        "unique": false
+      },
+      {
+        "name": "idx_weather_recorded",
+        "column": "recorded_at",
+        "unique": false
+      }
+    ],
+    "foreignKeys": [
+      {
+        "COLUMN_NAME": "farm_id",
+        "REFERENCED_TABLE_NAME": "farms",
+        "REFERENCED_COLUMN_NAME": "id",
+        "CONSTRAINT_NAME": "fk_weather_farm"
+      }
+    ],
+    "createStatement": "CREATE TABLE `weather_observations` (\n  `farm_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `temperature` decimal(5,2) NOT NULL,\n  `rainfall` decimal(8,2) NOT NULL,\n  `humidity` decimal(5,2) NOT NULL,\n  `forecast_rainfall` decimal(8,2) DEFAULT NULL,\n  `recorded_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `source` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,\n  KEY `idx_weather_farm` (`farm_id`),\n  KEY `idx_weather_recorded` (`farm_id`,`recorded_at`),\n  CONSTRAINT `fk_weather_farm` FOREIGN KEY (`farm_id`) REFERENCES `farms` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  }
+}

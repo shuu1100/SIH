@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     try {
       const [userRows]: any = await pool.query(
-        'SELECT id, password FROM users WHERE id = ? OR role = ? LIMIT 1',
+        'SELECT id, role FROM users WHERE id = ? OR role = ? LIMIT 1',
         [userId, 'administrator']
       );
 
@@ -51,23 +51,26 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const storedHash = userRows[0].password;
-      if (storedHash) {
-        // Compare bcrypt hash
-        const isMatch = await bcrypt.compare(currentPassword, storedHash).catch(() => false);
-        // Also allow fallback check if stored as plain text or demo
-        const isPlainMatch = currentPassword === storedHash || (storedHash.startsWith('$2') === false && currentPassword === storedHash);
-        
-        if (!isMatch && !isPlainMatch && currentPassword !== 'admin123' && currentPassword !== 'admin1') {
-          return NextResponse.json(
-            { error: { code: 'invalid_current_password', message: 'Current password is incorrect.' } },
-            { status: 400 }
-          );
-        }
-      }
+      // Check if farmer or bank user to update password_hash in respective table
+      const [farmerRows]: any = await pool.query(
+        'SELECT id, password_hash FROM farmers WHERE id = ? LIMIT 1',
+        [userId]
+      );
 
-      const hashedNew = await bcrypt.hash(newPassword, 12);
-      await pool.query('UPDATE users SET password = ? WHERE id = ?', [hashedNew, userRows[0].id]);
+      if (farmerRows && farmerRows.length > 0) {
+        const storedHash = farmerRows[0].password_hash;
+        if (storedHash) {
+          const isMatch = await bcrypt.compare(currentPassword, storedHash).catch(() => false);
+          if (!isMatch && currentPassword !== storedHash) {
+            return NextResponse.json(
+              { error: { code: 'invalid_current_password', message: 'Current password is incorrect.' } },
+              { status: 400 }
+            );
+          }
+        }
+        const hashedNew = await bcrypt.hash(newPassword, 10);
+        await pool.query('UPDATE farmers SET password_hash = ? WHERE id = ?', [hashedNew, userId]);
+      }
 
       return NextResponse.json({
         success: true,

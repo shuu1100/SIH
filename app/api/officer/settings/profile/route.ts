@@ -47,10 +47,9 @@ export async function PATCH(req: NextRequest) {
       await pool.query(
         `UPDATE users SET 
           name = COALESCE(?, name), 
-          phone = COALESCE(?, phone), 
           email = COALESCE(?, email) 
          WHERE id = ? OR role = 'administrator'`,
-        [cleanName, cleanPhone, cleanEmail, userId]
+        [cleanName, cleanEmail, userId]
       );
     } catch (dbErr: any) {
       console.warn('[Officer Profile PATCH] DB update warning:', dbErr?.message);

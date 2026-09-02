@@ -85,65 +85,65 @@ export async function POST(req: NextRequest) {
 
       // 2. Insert into `users` table
       await connection.query(
-        `INSERT INTO users (id, email, name, phone, username, password, role, account_status, profile_id, metadata)
-         VALUES (?, ?, ?, ?, ?, ?, ?, 'active', ?, ?);`,
+        `INSERT INTO users (id, email, name, role, profile_id)
+         VALUES (?, ?, ?, ?, ?);`,
         [
           userId,
           finalEmail,
           finalName,
-          finalPhone || null,
-          finalUsername,
-          hashedPassword,
           normalizedRole,
           userId,
-          JSON.stringify({
-            state: state || 'Odisha',
-            district: district || 'Mayurbhanj',
-            village: village || 'Baripada',
-            ...metadata
-          })
         ]
       );
 
-      // 3. If farmer, insert into `farmer_profiles`, `crops`
+      // 3. If farmer, insert into `farmers`, `farms`, `crops`
       if (normalizedRole === 'farmer') {
-        try {
-          await connection.query(
-            `INSERT INTO farmer_profiles (id, user_id, name, phone, district, village, state, language, land_area, soil_type)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
-            [
-              userId,
-              userId,
-              finalName,
-              finalPhone || `943${timestamp.toString().slice(-7)}`,
-              district || 'Mayurbhanj',
-              village || 'Baripada',
-              state || 'Odisha',
-              preferredLanguage || language || 'en',
-              parsedArea,
-              soilType || 'Red Loamy',
-            ]
-          );
-        } catch (fErr) {
-          console.warn('[farmer_profiles insert warning]:', fErr);
-        }
+        const farmId = `FRM_LAND_${timestamp.toString().slice(-8)}`;
 
-        try {
-          await connection.query(
-            `INSERT INTO crops (id, farmer_id, name, stage, sowing_date, area_acres)
-             VALUES (?, ?, ?, ?, ?, ?);`,
-            [
-              cropId,
-              userId,
-              currentCrop || 'Rice / Paddy',
-              'Vegetative Stage',
-              sowingDate && /^\d{4}-\d{2}-\d{2}$/.test(sowingDate) ? sowingDate : new Date().toISOString().split('T')[0],
-              parsedArea
-            ]
-          );
-        } catch (cErr) {
-          console.warn('[crops insert warning]:', cErr);
-        }
+        await connection.query(
+          `INSERT INTO farmers (id, name, phone, email, password_hash, district, village, language, land_area, state)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+          [
+            userId,
+            finalName,
+            finalPhone || `943${timestamp.toString().slice(-7)}`,
+            finalEmail,
+            hashedPassword,
+            district || 'Mayurbhanj',
+            village || 'Baripada',
+            preferredLanguage || language || 'or',
+            parsedArea,
+            state || 'Odisha',
+          ]
+        );
+
+        await connection.query(
+          `INSERT INTO farms (id, farmer_id, name, latitude, longitude, area, soil_type, village, district)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+          [
+            farmId,
+            userId,
+            `${finalName}'s Farm`,
+            21.9324,
+            86.7351,
+            parsedArea,
+            soilType || 'Red Loamy',
+            village || 'Baripada',
+            district || 'Mayurbhanj',
+          ]
+        );
+
+        await connection.query(
+          `INSERT INTO crops (id, farmer_id, name, stage, sowing_date)
+           VALUES (?, ?, ?, ?, ?);`,
+          [
+            cropId,
+            userId,
+            currentCrop || 'Rice / Paddy',
+            'Vegetative',
+            sowingDate && /^\d{4}-\d{2}-\d{2}$/.test(sowingDate) ? sowingDate : new Date().toISOString().split('T')[0],
+          ]
+        );
       }
 
       await connection.commit();
