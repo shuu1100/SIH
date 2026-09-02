@@ -57,12 +57,11 @@ export async function GET(req: NextRequest) {
 
     try {
       // 1. Fetch user from RDS
-      const [userRows]: any = await pool.query('SELECT id, name, email, phone FROM users WHERE id = ? OR role = ? LIMIT 1', [userId, 'administrator']);
+      const [userRows]: any = await pool.query('SELECT id, name, email, role FROM users WHERE id = ? OR role = ? LIMIT 1', [userId, 'administrator']);
       if (userRows && userRows.length > 0) {
         userRecord.id = userRows[0].id;
         userRecord.name = userRows[0].name || userRecord.name;
         userRecord.email = userRows[0].email || userRecord.email;
-        userRecord.phone = userRows[0].phone || userRecord.phone;
       }
 
       // 2. Fetch or create officer settings row in RDS

@@ -13,6 +13,7 @@ export default function OnboardingPage() {
   const [role, setRole] = useState<'farmer' | 'admin'>('farmer');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const MAYURBHANJ_BLOCK_COORDS: Record<string, [number, number]> = {
     'Baripada': [21.9324, 86.7351],
@@ -94,80 +95,39 @@ export default function OnboardingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(null);
 
     try {
       if (role === 'farmer') {
-        const farmerId = `farmer-${Date.now()}`;
-        
-        // 1. Create Farmer in DB
-        const farmerRes = await fetch('/api/farmers', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: farmerId,
-            name: farmerForm.name,
-            phone: farmerForm.phone,
-            district: farmerForm.district,
-            village: farmerForm.village,
-            language: farmerForm.language,
-            land_area: parseFloat(farmerForm.land_area) || 0,
-            loan_amount: parseFloat(farmerForm.loan_amount) || 0,
-          })
-        });
-        await farmerRes.json();
-
-        // 2. Create Crop in DB
-        if (farmerForm.crop_name) {
-          await fetch('/api/crops', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: `crop-${Date.now()}`,
-              farmer_id: farmerId,
-              name: farmerForm.crop_name,
-              stage: farmerForm.crop_stage,
-              sowing_date: farmerForm.sowing_date
-            })
-          });
+        const cleanPhone = farmerForm.phone.replace(/\D/g, '').slice(-10);
+        if (!cleanPhone || cleanPhone.length !== 10) {
+          throw new Error('Please enter a valid 10-digit Indian mobile number.');
         }
 
-        // 3. Dynamically Broadcast & Save Location to District Distress Map Telemetry
-        await fetch('/api/officer/farmers', {
+        // 1. Transactional Atomic Registration in AWS RDS MySQL
+        const farmerRes = await fetch('/api/farmer/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: farmerForm.name,
-            phone: farmerForm.phone,
+            fullName: farmerForm.name.trim(),
+            mobileNumber: cleanPhone,
+            password: 'Password123!',
             district: farmerForm.district,
             block: farmerForm.block,
             village: farmerForm.village,
             latitude: farmerForm.latitude,
             longitude: farmerForm.longitude,
-            crop: farmerForm.crop_name,
-            landArea: `${farmerForm.land_area} Acres`,
-            riskScore: 78,
-            riskLevel: 'HIGH',
-            primaryReason: 'Newly Registered Farm - Telemetry Active',
-          }),
-        }).catch(() => {});
-
-        // 4. Save Profile
-        await fetch('/api/profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId: 'user-active',
-            name: farmerForm.name,
-            email: 'farmer@smartcrop.in',
-            role: 'farmer',
-            phone: farmerForm.phone,
-            district: farmerForm.district,
-            village: farmerForm.village,
-            language: farmerForm.language,
-            land_area: parseFloat(farmerForm.land_area) || 0,
-            loan_amount: parseFloat(farmerForm.loan_amount) || 0,
+            landArea: parseFloat(farmerForm.land_area) || 3.5,
+            currentCrop: farmerForm.crop_name || 'Rice / Paddy',
+            sowingDate: farmerForm.sowing_date || new Date().toISOString().split('T')[0],
+            preferredLanguage: farmerForm.language || 'or',
           })
         });
+
+        const resData = await farmerRes.json().catch(() => ({}));
+        if (!farmerRes.ok) {
+          throw new Error(resData?.error?.message || 'Failed to register farmer in AWS RDS.');
+        }
 
         setSuccess(true);
         setTimeout(() => {
@@ -175,27 +135,37 @@ export default function OnboardingPage() {
         }, 1200);
 
       } else if (role === 'admin') {
-        await fetch('/api/profile', {
+        const cleanPhone = officerForm.phone.replace(/\D/g, '').slice(-10);
+        const adminRes = await fetch('/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            userId: 'officer-active',
-            name: officerForm.name,
-            email: 'officer@agri.gov.in',
-            role: 'admin',
-            phone: officerForm.phone,
+            fullName: officerForm.name.trim(),
+            mobileNumber: cleanPhone,
+            email: `officer_${cleanPhone}@smartcrop.in`,
+            password: 'Password123!',
+            role: 'administrator',
             district: officerForm.district,
-            designation: officerForm.designation
+            metadata: {
+              designation: officerForm.designation,
+              department: officerForm.department
+            }
           })
         });
+
+        const adminData = await adminRes.json().catch(() => ({}));
+        if (!adminRes.ok) {
+          throw new Error(adminData?.error?.message || 'Failed to register officer profile.');
+        }
 
         setSuccess(true);
         setTimeout(() => {
           router.push('/officer-dashboard');
         }, 1200);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Onboarding submission error:', err);
+      setErrorMessage(err.message || 'An unexpected error occurred during onboarding. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -262,6 +232,17 @@ export default function OnboardingPage() {
             <span className="text-xs text-zinc-400 mt-0.5">District Distress Monitoring & Alerts</span>
           </button>
         </div>
+
+        {/* Error Alert Message */}
+        {errorMessage && (
+          <div className="mb-6 p-4 rounded-2xl bg-red-500/15 border border-red-500/30 text-red-200 text-sm flex items-start gap-3">
+            <span className="text-red-400 font-bold">✕</span>
+            <div className="flex-1">
+              <p className="font-semibold text-red-100">Registration Failed</p>
+              <p className="text-xs text-red-200/80 mt-0.5">{errorMessage}</p>
+            </div>
+          </div>
+        )}
 
         {/* Dynamic Form based on selected Role */}
         <form onSubmit={handleSubmit} className="space-y-5">

@@ -123,10 +123,9 @@ export async function POST(req: NextRequest) {
       await query(`
         UPDATE users 
         SET email = COALESCE(?, email),
-            name = COALESCE(?, name),
-            phone = COALESCE(?, phone)
+            name = COALESCE(?, name)
         WHERE id = ?
-      `, [profileData.email, profileData.name, profileData.phone, id]);
+      `, [profileData.email, profileData.name, id]);
 
       // 2. If farmer, update farmers table
       if (role === 'farmer') {
@@ -144,9 +143,12 @@ export async function POST(req: NextRequest) {
       }
 
       return NextResponse.json({ success: true, data: profileData, source: 'aws_rds' }, { status: 200 });
-    } catch (dbErr) {
-      console.warn('[API POST /api/profile] RDS save fallback:', dbErr);
-      return NextResponse.json({ success: true, data: profileData, source: 'cached' }, { status: 200 });
+    } catch (dbErr: any) {
+      console.error('[API POST /api/profile] RDS save error:', dbErr?.message || dbErr);
+      return NextResponse.json(
+        { success: false, error: dbErr?.message || 'Failed to persist profile to AWS RDS database.' },
+        { status: 500 }
+      );
     }
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
