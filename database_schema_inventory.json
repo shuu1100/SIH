@@ -1,0 +1,3108 @@
+{
+  "ai_recommendations": {
+    "columns": {
+      "id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "category": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "Advisory",
+        "extra": ""
+      },
+      "priority": {
+        "type": "varchar(20)",
+        "nullable": true,
+        "key": "",
+        "default": "HIGH",
+        "extra": ""
+      },
+      "title": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "description": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "action_type": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "is_completed": {
+        "type": "tinyint(1)",
+        "nullable": true,
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "category",
+      "priority",
+      "title",
+      "description",
+      "action_type",
+      "is_completed",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "bank_applications": {
+    "columns": {
+      "id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(64)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_name": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "crop_name": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "loan_type": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Kisan Credit Card (KCC)",
+        "extra": ""
+      },
+      "amount": {
+        "type": "decimal(12,2)",
+        "nullable": true,
+        "key": "",
+        "default": "0.00",
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "Under Review",
+        "extra": ""
+      },
+      "applied_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "farmer_name",
+      "crop_name",
+      "loan_type",
+      "amount",
+      "status",
+      "applied_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "bank_users": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "bank_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "email": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      "phone": {
+        "type": "varchar(20)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "password_hash": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "role": {
+        "type": "enum('admin','staff')",
+        "nullable": false,
+        "key": "",
+        "default": "staff",
+        "extra": ""
+      },
+      "status": {
+        "type": "enum('active','inactive','suspended')",
+        "nullable": false,
+        "key": "",
+        "default": "active",
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "bank_id",
+      "name",
+      "email",
+      "phone",
+      "password_hash",
+      "role",
+      "status",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "bank_id",
+        "refTable": "banks",
+        "refColumn": "id",
+        "constraint": "fk_bankusers_bank"
+      }
+    ]
+  },
+  "banks": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "bank_name": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "institution_type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "official_website": {
+        "type": "varchar(500)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "official_email": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      "official_phone": {
+        "type": "varchar(20)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "description": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "logo_url": {
+        "type": "varchar(500)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "registered_address": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "state": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "district": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "verification_status": {
+        "type": "enum('draft','submitted','under_review','verified','rejected','suspended')",
+        "nullable": false,
+        "key": "",
+        "default": "draft",
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      }
+    },
+    "columnList": [
+      "id",
+      "bank_name",
+      "institution_type",
+      "official_website",
+      "official_email",
+      "official_phone",
+      "description",
+      "logo_url",
+      "registered_address",
+      "state",
+      "district",
+      "verification_status",
+      "created_at",
+      "updated_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "bookings": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "equipment_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "start_date": {
+        "type": "date",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "end_date": {
+        "type": "date",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "equipment_id",
+      "start_date",
+      "end_date",
+      "status"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "equipment_id",
+        "refTable": "equipment",
+        "refColumn": "id",
+        "constraint": "fk_bookings_equipment"
+      },
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_bookings_farmer"
+      }
+    ]
+  },
+  "crop_risk": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "crop_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "risk_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "risk_level": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "weather_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "soil_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "crop_health_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "market_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "financial_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "calculated_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "crop_id",
+      "risk_score",
+      "risk_level",
+      "weather_score",
+      "soil_score",
+      "crop_health_score",
+      "market_score",
+      "financial_score",
+      "calculated_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "crop_id",
+        "refTable": "crops",
+        "refColumn": "id",
+        "constraint": "fk_crop_risk_crop"
+      },
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_crop_risk_farmer"
+      }
+    ]
+  },
+  "crops": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "stage": {
+        "type": "varchar(50)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "sowing_date": {
+        "type": "date",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "name",
+      "stage",
+      "sowing_date"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_crops_farmer"
+      }
+    ]
+  },
+  "disaster_warnings": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "district": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "warning_type": {
+        "type": "enum('CYCLONE','FLOOD','HEATWAVE','EXTREME_RAINFALL')",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "source": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "message": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "processed_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "district",
+      "warning_type",
+      "source",
+      "message",
+      "processed_at",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "equipment": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "owner": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "location": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "price_per_hour": {
+        "type": "decimal(10,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "availability": {
+        "type": "tinyint(1)",
+        "nullable": false,
+        "key": "",
+        "default": "1",
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "name",
+      "type",
+      "owner",
+      "location",
+      "price_per_hour",
+      "availability"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "equipment_rentals": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "equipment_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "start_time": {
+        "type": "datetime",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "end_time": {
+        "type": "datetime",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "duration": {
+        "type": "decimal(10,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "total_cost": {
+        "type": "decimal(12,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "equipment_id",
+      "farmer_id",
+      "start_time",
+      "end_time",
+      "duration",
+      "total_cost",
+      "status"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "equipment_id",
+        "refTable": "equipment",
+        "refColumn": "id",
+        "constraint": "fk_equipment_rentals_equipment"
+      },
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_equipment_rentals_farmer"
+      }
+    ]
+  },
+  "facility_analytics": {
+    "columns": {
+      "id": {
+        "type": "int unsigned",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      "facility_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "event_type": {
+        "type": "enum('VIEW','TERMS_VIEW','APPLY_CLICK')",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_location": {
+        "type": "varchar(200)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "facility_id",
+      "event_type",
+      "farmer_location",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "facility_id",
+        "refTable": "financial_facilities",
+        "refColumn": "id",
+        "constraint": "fk_analytics_facility"
+      }
+    ]
+  },
+  "facility_benefits": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "facility_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "benefit": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "facility_id",
+      "benefit"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "facility_id",
+        "refTable": "financial_facilities",
+        "refColumn": "id",
+        "constraint": "fk_benefits_facility"
+      }
+    ]
+  },
+  "facility_documents": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "facility_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "document_name": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "description": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "is_required": {
+        "type": "tinyint(1)",
+        "nullable": false,
+        "key": "",
+        "default": "1",
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "facility_id",
+      "document_name",
+      "description",
+      "is_required"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "facility_id",
+        "refTable": "financial_facilities",
+        "refColumn": "id",
+        "constraint": "fk_documents_facility"
+      }
+    ]
+  },
+  "facility_eligibility": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "facility_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_type": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "minimum_land": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "maximum_land": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "crop_types": {
+        "type": "json",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "states": {
+        "type": "json",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "districts": {
+        "type": "json",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "other_conditions": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "facility_id",
+      "farmer_type",
+      "minimum_land",
+      "maximum_land",
+      "crop_types",
+      "states",
+      "districts",
+      "other_conditions"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "facility_id",
+        "refTable": "financial_facilities",
+        "refColumn": "id",
+        "constraint": "fk_eligibility_facility"
+      }
+    ]
+  },
+  "facility_terms": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "facility_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "version": {
+        "type": "varchar(20)",
+        "nullable": false,
+        "key": "",
+        "default": "1.0",
+        "extra": ""
+      },
+      "terms_text": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "effective_date": {
+        "type": "date",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "facility_id",
+      "version",
+      "terms_text",
+      "effective_date",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "facility_id",
+        "refTable": "financial_facilities",
+        "refColumn": "id",
+        "constraint": "fk_terms_facility"
+      }
+    ]
+  },
+  "farmer_profiles": {
+    "columns": {
+      "id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "user_id": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "phone": {
+        "type": "varchar(32)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "district": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Mayurbhanj",
+        "extra": ""
+      },
+      "village": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Baripada",
+        "extra": ""
+      },
+      "state": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Odisha",
+        "extra": ""
+      },
+      "language": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "en",
+        "extra": ""
+      },
+      "land_area": {
+        "type": "decimal(10,2)",
+        "nullable": true,
+        "key": "",
+        "default": "3.50",
+        "extra": ""
+      },
+      "soil_type": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Red Loamy",
+        "extra": ""
+      },
+      "irrigation_source": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Borewell & Canal",
+        "extra": ""
+      },
+      "loan_amount": {
+        "type": "decimal(12,2)",
+        "nullable": true,
+        "key": "",
+        "default": "0.00",
+        "extra": ""
+      },
+      "loan_due_date": {
+        "type": "date",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "kyc_status": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "VERIFIED",
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "user_id",
+      "name",
+      "phone",
+      "district",
+      "village",
+      "state",
+      "language",
+      "land_area",
+      "soil_type",
+      "irrigation_source",
+      "loan_amount",
+      "loan_due_date",
+      "kyc_status",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "farmers": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "phone": {
+        "type": "varchar(15)",
+        "nullable": false,
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      "email": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "password_hash": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "district": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "village": {
+        "type": "varchar(50)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "language": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "land_area": {
+        "type": "decimal(6,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "loan_amount": {
+        "type": "decimal(12,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "loan_due_date": {
+        "type": "date",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      "state": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": "",
+        "extra": ""
+      },
+      "sms_alerts_enabled": {
+        "type": "tinyint(1)",
+        "nullable": false,
+        "key": "",
+        "default": "1",
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "name",
+      "phone",
+      "email",
+      "password_hash",
+      "district",
+      "village",
+      "language",
+      "land_area",
+      "loan_amount",
+      "loan_due_date",
+      "created_at",
+      "state",
+      "sms_alerts_enabled"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "farms": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "latitude": {
+        "type": "decimal(10,7)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "longitude": {
+        "type": "decimal(10,7)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "area": {
+        "type": "decimal(10,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "soil_type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "village": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "district": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "name",
+      "latitude",
+      "longitude",
+      "area",
+      "soil_type",
+      "village",
+      "district"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_farms_farmer"
+      }
+    ]
+  },
+  "financial_facilities": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "bank_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "facility_name": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "facility_type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "description": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "minimum_amount": {
+        "type": "decimal(12,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "maximum_amount": {
+        "type": "decimal(12,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "interest_rate": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "tenure": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "repayment_frequency": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "processing_fee": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "eligibility_description": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "enum('draft','submitted','under_review','approved','published','unpublished','expired','suspended','deleted')",
+        "nullable": false,
+        "key": "",
+        "default": "draft",
+        "extra": ""
+      },
+      "application_url": {
+        "type": "varchar(500)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "terms_url": {
+        "type": "varchar(500)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      },
+      "expiry_date": {
+        "type": "date",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "bank_id",
+      "facility_name",
+      "facility_type",
+      "description",
+      "minimum_amount",
+      "maximum_amount",
+      "interest_rate",
+      "tenure",
+      "repayment_frequency",
+      "processing_fee",
+      "eligibility_description",
+      "status",
+      "application_url",
+      "terms_url",
+      "created_at",
+      "updated_at",
+      "expiry_date"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "bank_id",
+        "refTable": "banks",
+        "refColumn": "id",
+        "constraint": "fk_facilities_bank"
+      }
+    ]
+  },
+  "government_schemes": {
+    "columns": {
+      "id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "category": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": "Machinery Subsidy",
+        "extra": ""
+      },
+      "subsidy_percent": {
+        "type": "int",
+        "nullable": true,
+        "key": "",
+        "default": "50",
+        "extra": ""
+      },
+      "max_subsidy_amount": {
+        "type": "decimal(12,2)",
+        "nullable": true,
+        "key": "",
+        "default": "100000.00",
+        "extra": ""
+      },
+      "description": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "eligibility_criteria": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "ACTIVE",
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "name",
+      "category",
+      "subsidy_percent",
+      "max_subsidy_amount",
+      "description",
+      "eligibility_criteria",
+      "status",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "insurance": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "crop": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "crop",
+      "status"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_insurance_farmer"
+      }
+    ]
+  },
+  "interventions": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "officer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "risk_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "priority": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "notes": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "assigned_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      "completed_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "officer_id",
+      "farmer_id",
+      "risk_id",
+      "type",
+      "priority",
+      "status",
+      "notes",
+      "assigned_at",
+      "completed_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_interventions_farmer"
+      },
+      {
+        "column": "risk_id",
+        "refTable": "crop_risk",
+        "refColumn": "id",
+        "constraint": "fk_interventions_risk"
+      }
+    ]
+  },
+  "loans": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "bank_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "loan_type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "principal_amount": {
+        "type": "decimal(12,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "outstanding_amount": {
+        "type": "decimal(12,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "due_date": {
+        "type": "date",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "bank_id",
+      "loan_type",
+      "principal_amount",
+      "outstanding_amount",
+      "due_date",
+      "status"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "bank_id",
+        "refTable": "banks",
+        "refColumn": "id",
+        "constraint": "fk_loans_bank"
+      },
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_loans_farmer"
+      }
+    ]
+  },
+  "mandi_prices": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "crop_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "mandi_name": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "district": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "modal_price": {
+        "type": "decimal(10,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "price_date": {
+        "type": "date",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "mandi_location": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "price": {
+        "type": "decimal(10,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "min_price": {
+        "type": "decimal(10,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "max_price": {
+        "type": "decimal(10,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "msp": {
+        "type": "decimal(10,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "crop_id",
+      "mandi_name",
+      "district",
+      "modal_price",
+      "price_date",
+      "mandi_location",
+      "price",
+      "min_price",
+      "max_price",
+      "msp"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "notifications": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "user_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "type": {
+        "type": "varchar(50)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "category": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "priority": {
+        "type": "enum('critical','warning','info')",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "title": {
+        "type": "varchar(200)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "message": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "body": {
+        "type": "json",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "voice_text": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "language": {
+        "type": "varchar(10)",
+        "nullable": true,
+        "key": "",
+        "default": "en",
+        "extra": ""
+      },
+      "action_label": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "action_url": {
+        "type": "varchar(300)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "action_status": {
+        "type": "enum('not_required','required','in_progress','completed','expired')",
+        "nullable": true,
+        "key": "",
+        "default": "not_required",
+        "extra": ""
+      },
+      "source_feature": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "source_entity_id": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "correlation_id": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "is_read": {
+        "type": "tinyint(1)",
+        "nullable": false,
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      "read_at": {
+        "type": "datetime",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      "channel": {
+        "type": "enum('SMS','IN_APP','VOICE','PUSH')",
+        "nullable": false,
+        "key": "",
+        "default": "IN_APP",
+        "extra": ""
+      },
+      "status": {
+        "type": "enum('PENDING','SENT','DELIVERED','FAILED')",
+        "nullable": false,
+        "key": "",
+        "default": "PENDING",
+        "extra": ""
+      },
+      "provider": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "provider_message_id": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "risk_score": {
+        "type": "tinyint unsigned",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "reason": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "retry_count": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      "last_error": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "sent_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "delivered_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "failed_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "user_id",
+      "farmer_id",
+      "type",
+      "category",
+      "priority",
+      "title",
+      "message",
+      "body",
+      "voice_text",
+      "language",
+      "action_label",
+      "action_url",
+      "action_status",
+      "source_feature",
+      "source_entity_id",
+      "correlation_id",
+      "is_read",
+      "read_at",
+      "created_at",
+      "channel",
+      "status",
+      "provider",
+      "provider_message_id",
+      "risk_score",
+      "reason",
+      "retry_count",
+      "last_error",
+      "sent_at",
+      "delivered_at",
+      "failed_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_notifications_farmer"
+      }
+    ]
+  },
+  "officer_interventions": {
+    "columns": {
+      "id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "officer_id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(64)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_name": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "intervention_type": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "notes": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "outcome": {
+        "type": "text",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "risk_level": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "MEDIUM",
+        "extra": ""
+      },
+      "status": {
+        "type": "varchar(50)",
+        "nullable": true,
+        "key": "",
+        "default": "SCHEDULED",
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "officer_id",
+      "farmer_id",
+      "farmer_name",
+      "intervention_type",
+      "notes",
+      "outcome",
+      "risk_level",
+      "status",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "officer_settings": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      "user_id": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "notify_high_distress": {
+        "type": "tinyint(1)",
+        "nullable": true,
+        "key": "",
+        "default": "1",
+        "extra": ""
+      },
+      "notify_weather_emergency": {
+        "type": "tinyint(1)",
+        "nullable": true,
+        "key": "",
+        "default": "1",
+        "extra": ""
+      },
+      "notify_new_assignment": {
+        "type": "tinyint(1)",
+        "nullable": true,
+        "key": "",
+        "default": "1",
+        "extra": ""
+      },
+      "notify_loan_insurance": {
+        "type": "tinyint(1)",
+        "nullable": true,
+        "key": "",
+        "default": "0",
+        "extra": ""
+      },
+      "preferred_language": {
+        "type": "varchar(10)",
+        "nullable": true,
+        "key": "",
+        "default": "en",
+        "extra": ""
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      }
+    },
+    "columnList": [
+      "id",
+      "user_id",
+      "notify_high_distress",
+      "notify_weather_emergency",
+      "notify_new_assignment",
+      "notify_loan_insurance",
+      "preferred_language",
+      "updated_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "risk_history": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "crop_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "risk_score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "calculated_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "crop_id",
+      "risk_score",
+      "calculated_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "crop_id",
+        "refTable": "crops",
+        "refColumn": "id",
+        "constraint": "fk_risk_history_crop"
+      },
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_risk_history_farmer"
+      }
+    ]
+  },
+  "risk_scores": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "score": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "rainfall_risk": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "market_risk": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "loan_risk": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "reasons": {
+        "type": "json",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "score",
+      "rainfall_risk",
+      "market_risk",
+      "loan_risk",
+      "reasons",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_risk_scores_farmer"
+      }
+    ]
+  },
+  "scheme_application_documents": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "application_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "document_name": {
+        "type": "varchar(150)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "enum('missing','ready')",
+        "nullable": false,
+        "key": "",
+        "default": "missing",
+        "extra": ""
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      },
+      "file_data": {
+        "type": "longblob",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "file_name": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "mime_type": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "file_size": {
+        "type": "bigint",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "application_id",
+      "document_name",
+      "status",
+      "updated_at",
+      "file_data",
+      "file_name",
+      "mime_type",
+      "file_size"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "application_id",
+        "refTable": "scheme_applications",
+        "refColumn": "id",
+        "constraint": "fk_sad_application"
+      }
+    ]
+  },
+  "scheme_applications": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "farmer_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "scheme_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "eligibility_percent": {
+        "type": "tinyint unsigned",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "matched_reasons": {
+        "type": "json",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "status": {
+        "type": "enum('not_applied','submitted','verification','approved','rejected')",
+        "nullable": false,
+        "key": "",
+        "default": "not_applied",
+        "extra": ""
+      },
+      "rejection_reason": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "submitted_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "decided_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "farmer_id",
+      "scheme_id",
+      "eligibility_percent",
+      "matched_reasons",
+      "status",
+      "rejection_reason",
+      "submitted_at",
+      "decided_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "farmer_id",
+        "refTable": "farmers",
+        "refColumn": "id",
+        "constraint": "fk_scheme_app_farmer"
+      },
+      {
+        "column": "scheme_id",
+        "refTable": "schemes",
+        "refColumn": "id",
+        "constraint": "fk_scheme_app_scheme"
+      }
+    ]
+  },
+  "scheme_eligibility_criteria": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "scheme_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "field_name": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "operator": {
+        "type": "varchar(20)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "value": {
+        "type": "varchar(255)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "scheme_id",
+      "field_name",
+      "operator",
+      "value"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": [
+      {
+        "column": "scheme_id",
+        "refTable": "schemes",
+        "refColumn": "id",
+        "constraint": "fk_sec_scheme"
+      }
+    ]
+  },
+  "schemes": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(200)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "state": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "eligibility": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "documents": {
+        "type": "json",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "application_url": {
+        "type": "varchar(500)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "id",
+      "name",
+      "state",
+      "eligibility",
+      "documents",
+      "application_url"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "sms_templates": {
+    "columns": {
+      "id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "template_key": {
+        "type": "varchar(50)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "language": {
+        "type": "enum('en','hi','od')",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "body": {
+        "type": "text",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+      }
+    },
+    "columnList": [
+      "id",
+      "template_key",
+      "language",
+      "body",
+      "updated_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "users": {
+    "columns": {
+      "id": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "PRI",
+        "default": null,
+        "extra": ""
+      },
+      "email": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "name": {
+        "type": "varchar(255)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "role": {
+        "type": "varchar(50)",
+        "nullable": false,
+        "key": "",
+        "default": "farmer",
+        "extra": ""
+      },
+      "profile_id": {
+        "type": "varchar(100)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "created_at": {
+        "type": "timestamp",
+        "nullable": true,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    },
+    "columnList": [
+      "id",
+      "email",
+      "name",
+      "role",
+      "profile_id",
+      "created_at"
+    ],
+    "primaryKey": [
+      "id"
+    ],
+    "foreignKeys": []
+  },
+  "weather_observations": {
+    "columns": {
+      "farm_id": {
+        "type": "varchar(30)",
+        "nullable": false,
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      "temperature": {
+        "type": "decimal(5,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "rainfall": {
+        "type": "decimal(8,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "humidity": {
+        "type": "decimal(5,2)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "forecast_rainfall": {
+        "type": "decimal(8,2)",
+        "nullable": true,
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      "recorded_at": {
+        "type": "timestamp",
+        "nullable": false,
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      "source": {
+        "type": "varchar(100)",
+        "nullable": false,
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    },
+    "columnList": [
+      "farm_id",
+      "temperature",
+      "rainfall",
+      "humidity",
+      "forecast_rainfall",
+      "recorded_at",
+      "source"
+    ],
+    "primaryKey": [],
+    "foreignKeys": [
+      {
+        "column": "farm_id",
+        "refTable": "farms",
+        "refColumn": "id",
+        "constraint": "fk_weather_farm"
+      }
+    ]
+  }
+}

@@ -1,0 +1,394 @@
+[
+  {
+    "file": "app\\api\\auth\\register\\route.ts",
+    "line": 73,
+    "table": "users",
+    "invalidColumn": "phone",
+    "lineContent": "'SELECT id FROM users WHERE (phone = ? AND ? != \"\") OR (email = ? AND ? IS NOT NULL) OR (username = ? AND ? != \"\") LIMIT 1;',",
+    "description": "Table 'users' in RDS does not have column 'phone'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\auth\\register\\route.ts",
+    "line": 73,
+    "table": "users",
+    "invalidColumn": "username",
+    "lineContent": "'SELECT id FROM users WHERE (phone = ? AND ? != \"\") OR (email = ? AND ? IS NOT NULL) OR (username = ? AND ? != \"\") LIMIT 1;',",
+    "description": "Table 'users' in RDS does not have column 'username'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\farmer\\register\\route.ts",
+    "line": 75,
+    "table": "users",
+    "invalidColumn": "phone",
+    "lineContent": "'SELECT id FROM users WHERE phone = ? OR (email = ? AND ? IS NOT NULL) LIMIT 1;',",
+    "description": "Table 'users' in RDS does not have column 'phone'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\notifications\\[id]\\route.ts",
+    "line": 107,
+    "table": "notification",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "* PATCH /api/notifications/[id] — Update notification (mark read, update action status)",
+    "description": "Table 'notification' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\notifications\\[id]\\route.ts",
+    "line": 151,
+    "table": "error",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "console.error('Notification update error:', error);",
+    "description": "Table 'error' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\combined-risk\\route.ts",
+    "line": 54,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-factors\\route.ts",
+    "line": 51,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-factors\\[factor]\\route.ts",
+    "line": 87,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "`SELECT COUNT(DISTINCT f.id) as count FROM risk_scores r JOIN farmers f ON r.farmer_id = f.id WHERE ${baseWhere}`,",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-factors\\[factor]\\route.ts",
+    "line": 96,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "`SELECT ROUND(AVG(${riskColumn}), 1) as avgDeviation FROM risk_scores r JOIN farmers f ON r.farmer_id = f.id WHERE ${baseWhere}`,",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-factors\\[factor]\\route.ts",
+    "line": 107,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-factors\\[factor]\\route.ts",
+    "line": 123,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-factors\\[factor]\\route.ts",
+    "line": 138,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\distress-trend\\route.ts",
+    "line": 51,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\market-stress\\route.ts",
+    "line": 51,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON c.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\overview\\route.ts",
+    "line": 56,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\overview\\route.ts",
+    "line": 68,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\overview\\route.ts",
+    "line": 80,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\overview\\route.ts",
+    "line": 92,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON n.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\overview\\route.ts",
+    "line": 104,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON i.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\priority-interventions\\route.ts",
+    "line": 62,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\risk-distribution\\route.ts",
+    "line": 53,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\weather-stress\\route.ts",
+    "line": 54,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON fa.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\weather-stress\\route.ts",
+    "line": 93,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON r.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\analytics\\weather-stress\\route.ts",
+    "line": 114,
+    "table": "farmers",
+    "invalidColumn": "farmer_id",
+    "lineContent": "JOIN farmers f ON fa.farmer_id = f.id",
+    "description": "Table 'farmers' has column 'id' / 'phone', not 'farmer_id'. Valid columns: [id, name, phone, email, password_hash, district, village, language, land_area, loan_amount, loan_due_date, created_at, state, sms_alerts_enabled]"
+  },
+  {
+    "file": "app\\api\\officer\\settings\\language\\route.ts",
+    "line": 43,
+    "table": "language",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "{ error: { code: 'server_error', message: error.message || 'Failed to update language.' } },",
+    "description": "Table 'language' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\officer\\settings\\notifications\\route.ts",
+    "line": 60,
+    "table": "notification",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "{ error: { code: 'server_error', message: error.message || 'Failed to update notification settings.' } },",
+    "description": "Table 'notification' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\officer\\settings\\password\\route.ts",
+    "line": 43,
+    "table": "users",
+    "invalidColumn": "password",
+    "lineContent": "'SELECT id, password FROM users WHERE id = ? OR role = ? LIMIT 1',",
+    "description": "Table 'users' in RDS does not have column 'password'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\officer\\settings\\password\\route.ts",
+    "line": 70,
+    "table": "users",
+    "invalidColumn": "password",
+    "lineContent": "await pool.query('UPDATE users SET password = ? WHERE id = ?', [hashedNew, userRows[0].id]);",
+    "description": "Table 'users' in RDS does not have column 'password'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\officer\\settings\\password\\route.ts",
+    "line": 79,
+    "table": "password",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "{ error: { code: 'server_error', message: 'Failed to update password. Please try again.' } },",
+    "description": "Table 'password' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\officer\\settings\\profile\\route.ts",
+    "line": 56,
+    "table": "warning",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "console.warn('[Officer Profile PATCH] DB update warning:', dbErr?.message);",
+    "description": "Table 'warning' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\officer\\settings\\profile\\route.ts",
+    "line": 66,
+    "table": "profile",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "{ error: { code: 'server_error', message: error.message || 'Failed to update profile.' } },",
+    "description": "Table 'profile' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\officer\\settings\\route.ts",
+    "line": 60,
+    "table": "users",
+    "invalidColumn": "phone",
+    "lineContent": "const [userRows]: any = await pool.query('SELECT id, name, email, phone FROM users WHERE id = ? OR role = ? LIMIT 1', [userId, 'administrator']);",
+    "description": "Table 'users' in RDS does not have column 'phone'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\profile\\route.ts",
+    "line": 100,
+    "table": "their",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "// Strict security: User can only update their own profile; cannot self-escalate role",
+    "description": "Table 'their' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\profile\\route.ts",
+    "line": 122,
+    "table": "user",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "// 1. Update user",
+    "description": "Table 'user' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "app\\api\\users\\[id]\\approve\\route.ts",
+    "line": 25,
+    "table": "users",
+    "invalidColumn": "account_status",
+    "lineContent": "await pool.query(`UPDATE users SET account_status = 'active' WHERE id = ?`, [id]);",
+    "description": "Table 'users' in RDS does not have column 'account_status'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "app\\api\\users\\[id]\\reject\\route.ts",
+    "line": 25,
+    "table": "users",
+    "invalidColumn": "account_status",
+    "lineContent": "await pool.query(`UPDATE users SET account_status = 'rejected' WHERE id = ?`, [id]);",
+    "description": "Table 'users' in RDS does not have column 'account_status'. Valid columns: [id, email, name, role, profile_id, created_at]"
+  },
+  {
+    "file": "lib\\db.ts",
+    "line": 255,
+    "table": "current_timestamp",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+    "description": "Table 'current_timestamp' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "lib\\translations\\en.ts",
+    "line": 169,
+    "table": "schedule",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "\"update_schedule_soil\": \"Update schedule based on soil\",",
+    "description": "Table 'schedule' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "lib\\translations\\en.ts",
+    "line": 1002,
+    "table": "your",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "\"update_personal_contact\": \"Update your personal & contact records\",",
+    "description": "Table 'your' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "farmer profile\\farmer profile.tsx",
+    "line": 1055,
+    "table": "your",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "<p className=\"text-xs text-[#7a8b6f]\">{t(\"update_personal_contact\", \"Update your personal & contact records\")}</p>",
+    "description": "Table 'your' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "components\\officer\\DistrictDistressMap.tsx",
+    "line": 170,
+    "table": "search",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "// Drop or update search location beacon",
+    "description": "Table 'search' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\build_full_dictionaries.js",
+    "line": 178,
+    "table": "schedule",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "update_schedule_soil: 'Update schedule based on soil',",
+    "description": "Table 'schedule' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\build_master_indic_dictionaries.js",
+    "line": 173,
+    "table": "schedule",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "update_schedule_soil: 'Update schedule based on soil',",
+    "description": "Table 'schedule' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\check-columns.js",
+    "line": 8,
+    "table": "information_schema",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "\"SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'sih' AND TABLE_NAME = 'farmers' ORDER BY ORDINAL_POSITION\"",
+    "description": "Table 'information_schema' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\insert-data.mjs",
+    "line": 203,
+    "table": "to",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "// 1. Seed Farmers (Using REPLACE INTO / ON DUPLICATE KEY UPDATE to match exact columns)",
+    "description": "Table 'to' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\populate_indic_translations.js",
+    "line": 507,
+    "table": "translation",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "// Update translation files",
+    "description": "Table 'translation' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\test_persistence_endpoints.mjs",
+    "line": 142,
+    "table": "persistence",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "console.log('▶ STEP 4: Testing Profile Update Persistence...');",
+    "description": "Table 'persistence' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\test_persistence_endpoints.mjs",
+    "line": 152,
+    "table": "verification",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "throw new Error('Profile update verification failed!');",
+    "description": "Table 'verification' does not exist in AWS RDS MySQL."
+  },
+  {
+    "file": "scripts\\test_persistence_endpoints.mjs",
+    "line": 154,
+    "table": "verified",
+    "invalidColumn": "NON_EXISTENT_TABLE",
+    "lineContent": "console.log('✅ Profile UPDATE verified in database.\\n');",
+    "description": "Table 'verified' does not exist in AWS RDS MySQL."
+  }
+]
